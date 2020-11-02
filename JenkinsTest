@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World from GIT'
+            }
+        }
+        stage('Abou Al lool') {
+            steps {
+                echo "Hello abou al Lool"
+            }
+        }
+        stage("Check out GitRepo"){
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/kshatta/TestNewDev.git']]])
+            }
+        }
+        stage("Run shell script"){
+            steps {
+                sh '~/deploy.sh'
+                
+            }
+        }
+    }
+}
